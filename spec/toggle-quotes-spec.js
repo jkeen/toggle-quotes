@@ -226,6 +226,18 @@ describe('ToggleQuotes', () => {
           expect(editor.getText()).toBe(`${expectedQuote}a custom quoted string${expectedQuote}`)
         });
       })
+
+      it('toggles between the quotes on a line with other quotes', () => {
+        editor.setText('`a custom quoted string` but with some other stuff happening \'here\' and "there"')
+        editor.setCursorBufferPosition([0, 4])
+        let expectedQuote;
+
+        quoteCharacters.forEach(expectedQuote => {
+          toggleQuotes(editor)
+          expect(editor.getText()).toBe(`${expectedQuote}a custom quoted string${expectedQuote} but with some other stuff happening 'here' and "there"`)
+        });
+      })
+
     })
 
     describe('in an unrecognized file', () => {
@@ -248,6 +260,17 @@ describe('ToggleQuotes', () => {
         quoteCharacters.forEach(expectedQuote => {
           toggleQuotes(editor)
           expect(editor.getText()).toBe(`${expectedQuote}a custom quoted string${expectedQuote}`)
+        });
+      })
+
+      it('toggles between the quotes on a line with other quotes', () => {
+        editor.setText('`a custom quoted string` but with some other stuff happening \'here\' and "there"')
+        editor.setCursorBufferPosition([0, 4])
+        let expectedQuote;
+
+        quoteCharacters.forEach(expectedQuote => {
+          toggleQuotes(editor)
+          expect(editor.getText()).toBe(`${expectedQuote}a custom quoted string${expectedQuote} but with some other stuff happening 'here' and "there"`)
         });
       })
     })
